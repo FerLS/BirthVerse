@@ -1,16 +1,21 @@
-'use client'
+"use client";
 
-import { motion, AnimatePresence } from 'framer-motion'
-import { Quote } from 'lucide-react'
+import { motion, AnimatePresence } from "framer-motion";
+import { Quote } from "lucide-react";
 
 interface VerseDisplayProps {
-  verse: string | null
-  reference: string | null
-  loading: boolean
-  error: string | null
+  verse: string | null;
+  reference: string | null;
+  loading: boolean;
+  error: string | null;
 }
 
-export function VerseDisplay({ verse, reference, loading, error }: VerseDisplayProps) {
+export function VerseDisplay({
+  verse,
+  reference,
+  loading,
+  error,
+}: VerseDisplayProps) {
   return (
     <AnimatePresence mode="wait">
       {loading && (
@@ -25,17 +30,31 @@ export function VerseDisplay({ verse, reference, loading, error }: VerseDisplayP
             <motion.div
               className="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full"
               animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 0.6, repeat: Infinity, repeatType: "loop" }}
+              transition={{
+                duration: 0.6,
+                repeat: Infinity,
+                repeatType: "loop",
+              }}
             />
             <motion.div
               className="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full"
               animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 0.6, repeat: Infinity, repeatType: "loop", delay: 0.2 }}
+              transition={{
+                duration: 0.6,
+                repeat: Infinity,
+                repeatType: "loop",
+                delay: 0.2,
+              }}
             />
             <motion.div
               className="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full"
               animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 0.6, repeat: Infinity, repeatType: "loop", delay: 0.4 }}
+              transition={{
+                duration: 0.6,
+                repeat: Infinity,
+                repeatType: "loop",
+                delay: 0.4,
+              }}
             />
           </div>
         </motion.div>
@@ -53,7 +72,7 @@ export function VerseDisplay({ verse, reference, loading, error }: VerseDisplayP
         </motion.p>
       )}
 
-      {verse && reference && (
+      {verse && reference && !loading && (
         <motion.div
           key="verse"
           initial={{ opacity: 0, y: 10 }}
@@ -61,8 +80,11 @@ export function VerseDisplay({ verse, reference, loading, error }: VerseDisplayP
           exit={{ opacity: 0, y: -10 }}
           className="text-center space-y-4 bg-gray-50 dark:bg-gray-800 rounded-lg p-6 shadow-sm"
         >
-          <Quote className="mx-auto text-gray-400 dark:text-gray-600" size={24} />
-          <motion.p 
+          <Quote
+            className="mx-auto text-gray-400 dark:text-gray-600"
+            size={24}
+          />
+          <motion.p
             className="text-xl text-gray-800 dark:text-gray-200"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -70,7 +92,7 @@ export function VerseDisplay({ verse, reference, loading, error }: VerseDisplayP
           >
             {verse}
           </motion.p>
-          <motion.p 
+          <motion.p
             className="text-sm text-gray-600 dark:text-gray-400"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -81,6 +103,5 @@ export function VerseDisplay({ verse, reference, loading, error }: VerseDisplayP
         </motion.div>
       )}
     </AnimatePresence>
-  )
+  );
 }
-
