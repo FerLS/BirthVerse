@@ -28,7 +28,7 @@ export function VerseDisplay({
         >
           <div className="flex justify-center items-center space-x-1">
             <motion.div
-              className="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full"
+              className="w-2 h-2 bg-black dark:bg-blue-400 rounded-full"
               animate={{ y: [0, -10, 0] }}
               transition={{
                 duration: 0.6,
@@ -37,7 +37,7 @@ export function VerseDisplay({
               }}
             />
             <motion.div
-              className="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full"
+              className="w-2 h-2  bg-black dark:bg-blue-400 rounded-full"
               animate={{ y: [0, -10, 0] }}
               transition={{
                 duration: 0.6,
@@ -47,7 +47,7 @@ export function VerseDisplay({
               }}
             />
             <motion.div
-              className="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full"
+              className="w-2 h-2  bg-black dark:bg-blue-400 rounded-full"
               animate={{ y: [0, -10, 0] }}
               transition={{
                 duration: 0.6,
@@ -72,36 +72,40 @@ export function VerseDisplay({
         </motion.p>
       )}
 
-      {verse && reference && !loading && (
-        <motion.div
-          key="verse"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          className="text-center space-y-4 bg-gray-50 dark:bg-gray-800 rounded-lg p-6 shadow-sm"
-        >
-          <Quote
-            className="mx-auto text-gray-400 dark:text-gray-600"
-            size={24}
-          />
-          <motion.p
-            className="text-xl text-gray-800 dark:text-gray-200"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
+      <AnimatePresence>
+        {verse && reference && !loading && (
+          <motion.div
+            key="verse"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="text-center space-y-4 bg-black/5 backdrop-blur-sm  rounded-lg p-6 shadow-sm"
           >
-            {verse}
-          </motion.p>
-          <motion.p
-            className="text-sm text-gray-600 dark:text-gray-400"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            {reference}
-          </motion.p>
-        </motion.div>
-      )}
+            <Quote
+              className="mx-auto text-gray-400 dark:text-gray-600"
+              size={24}
+            />
+            <motion.p
+              className="text-xl text-gray-800 dark:text-gray-200 font-serif italic"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              {verse}
+            </motion.p>
+            <motion.p
+              className="text-sm text-gray-600 dark:text-gray-400"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              {reference && !isNaN(reference.charAt(0) as any)
+                ? reference.charAt(1).toUpperCase() + reference.slice(2)
+                : reference.charAt(0).toUpperCase() + reference.slice(1)}
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </AnimatePresence>
   );
 }

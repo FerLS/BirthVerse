@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { BirthdayInput } from "@/components/birthday-input";
 import { VerseDisplay } from "@/components/verse-display";
 import { Button } from "@/components/ui/button";
@@ -42,7 +42,10 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-6 bg-background text-foreground">
+    <main
+      className="min-h-screen flex flex-col items-center justify-center p-6 bg-background text-foreground pattern-dots pattern-green-500 pattern-bg-white 
+  pattern-size-4 pattern-opacity-100"
+    >
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -51,21 +54,30 @@ export default function Home() {
       >
         <div className="text-center space-y-10">
           <motion.h1
-            className="text-3xl font-bold flex items-center justify-center text-foreground "
+            className="text-6xl font-bold flex items-center justify-center text-foreground  "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <Book className="mr-2 md:inline hidden " />
             <p> Discover Your BirthVerse</p>
           </motion.h1>
-          <p className="text-xl text-muted-foreground">
-            Have you ever wondered which Bible verse corresponds to your date of
-            birth? No? I don’t care, here you go.
-          </p>
+          <AnimatePresence>
+            {!verse && (
+              <motion.p
+                className="text-xl text-muted-foreground font-semibold bg-gradient-to-b p-4"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                Have you ever wondered which Bible verse corresponds to your
+                date of birth? No? I don’t care, here you go.
+              </motion.p>
+            )}
+          </AnimatePresence>
         </div>
         <motion.div
-          className="bg-card text-card-foreground rounded-lg p-6 shadow-sm"
+          className="bg-card/5 border-green-500 outline outline-4 outline-green-500 outline-offset-4  backdrop-blur-sm   text-card-foreground rounded-lg p-6 shadow-sm"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
