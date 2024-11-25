@@ -31,14 +31,9 @@ export default function Home() {
         2,
         "0"
       )}-${String(birthday.day).padStart(2, "0")}`;
-      const verseText = await getBibleVerseFromDate(dateString);
-      if (typeof verseText === "string") {
-        setVerse(verseText);
-        setReference(null);
-      } else {
-        setVerse(verseText.text);
-        setReference(verseText.reference);
-      }
+      const { text, reference } = await getBibleVerseFromDate(dateString);
+      setVerse(text);
+      setReference(reference);
     } catch (err) {
       setError("Failed to fetch verse. Please try again.");
     } finally {
@@ -54,17 +49,19 @@ export default function Home() {
         transition={{ duration: 0.5 }}
         className="w-full max-w-md space-y-8 "
       >
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-10">
           <motion.h1
-            className="text-3xl font-bold flex items-center justify-center text-foreground"
+            className="text-3xl font-bold flex items-center justify-center text-foreground "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <Book className="mr-2" /> Birthday Bible Verse
+            <Book className="mr-2 md:inline hidden " />
+            <p> Discover Your BirthVerse</p>
           </motion.h1>
-          <p className="text-lg text-muted-foreground">
-            Discover your personalized scripture
+          <p className="text-xl text-muted-foreground">
+            Have you ever wondered which Bible verse corresponds to your date of
+            birth? No? I don’t care, here you go.
           </p>
         </div>
         <motion.div
@@ -95,83 +92,81 @@ export default function Home() {
 }
 
 const getBibleBooks = () => [
-  "1chronicles",
-  "1corinthians",
-  "1john",
-  "1kings",
-  "1peter",
-  "1samuel",
-  "1thessalonians",
-  "1timothy",
-  "2chronicles",
-  "2corinthians",
-  "2john",
-  "2kings",
-  "2peter",
-  "2samuel",
-  "2thessalonians",
-  "2timothy",
-  "3john",
-  "acts",
-  "amos",
-  "colossians",
-  "daniel",
-  "deuteronomy",
-  "ecclesiastes",
-  "ephesians",
-  "esther",
-  "exodus",
-  "ezekiel",
-  "ezra",
-  "galatians",
-  "genesis",
-  "habakkuk",
-  "haggai",
-  "hebrews",
-  "hosea",
-  "isaiah",
-  "james",
-  "jeremiah",
-  "job",
-  "joel",
-  "john",
-  "jonah",
-  "joshua",
-  "jude",
-  "judges",
-  "lamentations",
-  "leviticus",
-  "luke",
-  "malachi",
-  "mark",
-  "matthew",
-  "micah",
-  "nahum",
-  "nehemiah",
-  "numbers",
-  "obadiah",
-  "philemon",
-  "philippians",
-  "proverbs",
-  "psalms",
-  "revelation",
-  "romans",
-  "ruth",
-  "songofsolomon",
-  "titus",
-  "zechariah",
-  "zephaniah",
+  { name: "1chronicles", chapters: 29 },
+  { name: "1corinthians", chapters: 16 },
+  { name: "1john", chapters: 5 },
+  { name: "1kings", chapters: 22 },
+  { name: "1peter", chapters: 5 },
+  { name: "1samuel", chapters: 31 },
+  { name: "1thessalonians", chapters: 5 },
+  { name: "1timothy", chapters: 6 },
+  { name: "2chronicles", chapters: 36 },
+  { name: "2corinthians", chapters: 13 },
+  { name: "2john", chapters: 1 },
+  { name: "2kings", chapters: 25 },
+  { name: "2peter", chapters: 3 },
+  { name: "2samuel", chapters: 24 },
+  { name: "2thessalonians", chapters: 3 },
+  { name: "2timothy", chapters: 4 },
+  { name: "3john", chapters: 1 },
+  { name: "acts", chapters: 28 },
+  { name: "amos", chapters: 9 },
+  { name: "colossians", chapters: 4 },
+  { name: "daniel", chapters: 12 },
+  { name: "deuteronomy", chapters: 34 },
+  { name: "ecclesiastes", chapters: 12 },
+  { name: "ephesians", chapters: 6 },
+  { name: "esther", chapters: 10 },
+  { name: "exodus", chapters: 40 },
+  { name: "ezekiel", chapters: 48 },
+  { name: "ezra", chapters: 10 },
+  { name: "galatians", chapters: 6 },
+  { name: "genesis", chapters: 50 },
+  { name: "habakkuk", chapters: 3 },
+  { name: "haggai", chapters: 2 },
+  { name: "hebrews", chapters: 13 },
+  { name: "hosea", chapters: 14 },
+  { name: "isaiah", chapters: 66 },
+  { name: "james", chapters: 5 },
+  { name: "jeremiah", chapters: 52 },
+  { name: "job", chapters: 42 },
+  { name: "joel", chapters: 3 },
+  { name: "john", chapters: 21 },
+  { name: "jonah", chapters: 4 },
+  { name: "joshua", chapters: 24 },
+  { name: "jude", chapters: 1 },
+  { name: "judges", chapters: 21 },
+  { name: "lamentations", chapters: 5 },
+  { name: "leviticus", chapters: 27 },
+  { name: "luke", chapters: 24 },
+  { name: "malachi", chapters: 4 },
+  { name: "mark", chapters: 16 },
+  { name: "matthew", chapters: 28 },
+  { name: "micah", chapters: 7 },
+  { name: "nahum", chapters: 3 },
+  { name: "nehemiah", chapters: 13 },
+  { name: "numbers", chapters: 36 },
+  { name: "obadiah", chapters: 1 },
+  { name: "philemon", chapters: 1 },
+  { name: "philippians", chapters: 4 },
+  { name: "proverbs", chapters: 31 },
+  { name: "psalms", chapters: 150 },
+  { name: "revelation", chapters: 22 },
+  { name: "romans", chapters: 16 },
+  { name: "ruth", chapters: 4 },
+  { name: "songofsolomon", chapters: 8 },
+  { name: "titus", chapters: 3 },
+  { name: "zechariah", chapters: 14 },
+  { name: "zephaniah", chapters: 3 },
 ];
 
-const queryBibleApi = async (book: string, chapter: number, verse: number) => {
-  const url = `https://bible-api.com/${book}%20${chapter}:${verse}`;
+const queryBibleApi = async (book: string, chapter: number) => {
+  const url = `https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/en-asv/books/${book}/chapters/${chapter}.json`;
   const response = await fetch(url);
   if (response.ok) {
     const data = await response.json();
-    return {
-      text: data.text,
-      reference: `${book} ${chapter}:${verse}`,
-    };
+
+    return data;
   }
   return null;
 };
@@ -185,41 +180,20 @@ const getBibleVerseFromDate = async (dateString: string) => {
 
     const books = getBibleBooks();
     let bookIndex = (day * month + year) % books.length;
-    let book = books[bookIndex];
+    let book = books[bookIndex].name;
 
-    let chapter = (day + month + year) % 20;
-    let verse = (day * month * year) % 30;
+    let chapter = ((day + month + year) % books[bookIndex].chapters) + 1;
 
-    console.log(`Fetching verse from ${book} ${chapter}:${verse}`);
-    let result = await queryBibleApi(book, chapter, verse);
-    if (result) return result;
+    let result = await queryBibleApi(book, chapter);
 
-    while (!result) {
-      verse--;
-      result = await queryBibleApi(book, chapter, verse);
-      if (result) return result;
-      chapter--;
-      result = await queryBibleApi(book, chapter, verse);
-      if (result) return result;
-      const books = getBibleBooks();
-      bookIndex--;
-      book = books[bookIndex];
-      result = await queryBibleApi(book, chapter, verse);
-      if (result) return result;
-    }
+    let index = (day + month + year) % result.data.length;
 
-    return getAlternativeVerse();
+    return {
+      text: result.data[index].text,
+      reference: `${book} ${chapter}:${result.data[index].verse}`,
+    };
   } catch (error) {
-    return "Invalid date format. Use 'YYYY-MM-DD'.";
+    console.error(error);
+    return { text: "Error", reference: "Error" };
   }
-};
-
-const getAlternativeVerse = () => {
-  const fallbackVerse = {
-    book: "psalms",
-    chapter: 23,
-    verse: 1,
-    text: "HOHO, easter egg",
-  };
-  return `${fallbackVerse.text} (Psalms ${fallbackVerse.chapter}:${fallbackVerse.verse})`;
 };
