@@ -6,6 +6,18 @@ import { BirthdayInput } from "@/components/birthday-input";
 import { VerseDisplay } from "@/components/verse-display";
 import { Button } from "@/components/ui/button";
 import { Book } from "lucide-react";
+import { Space_Mono, Source_Sans_3 } from "next/font/google";
+
+const space_mono = Space_Mono({
+  weight: "400",
+  style: "normal",
+  subsets: ["latin"],
+});
+const source_sans_pro = Source_Sans_3({
+  weight: "400",
+  style: "normal",
+  subsets: ["latin"],
+});
 
 export default function Home() {
   const [birthday, setBirthday] = useState<{
@@ -43,7 +55,7 @@ export default function Home() {
 
   return (
     <main
-      className="min-h-screen flex flex-col items-center justify-center p-6 bg-background text-foreground pattern-dots pattern-green-500 pattern-bg-white 
+      className="min-h-[100dvh] flex flex-col items-center justify-center p-6 bg-background text-foreground pattern-dots pattern-green-500 pattern-bg-white 
   pattern-size-4 pattern-opacity-100"
     >
       <motion.div
@@ -54,21 +66,23 @@ export default function Home() {
       >
         <div className="text-center space-y-10">
           <motion.h1
-            className="text-6xl font-bold flex items-center justify-center text-foreground  "
+            className="text-6xl font-bold flex items-center justify-center text-foreground  drop-shadow-lg "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
+            style={{ fontFamily: space_mono.style.fontFamily }}
           >
             <p> Discover Your BirthVerse</p>
           </motion.h1>
           <AnimatePresence>
             {!verse && (
               <motion.p
-                className="text-xl text-muted-foreground font-semibold bg-gradient-to-b p-4"
+                className="text-xl text-muted-foreground font-semibold bg-gradient-to-b p-4 drop-shadow-lg"
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.2 }}
+                style={{ fontFamily: source_sans_pro.style.fontFamily }}
               >
                 Have you ever wondered which Bible verse corresponds to your
                 date of birth? No? I don’t care, here you go.
